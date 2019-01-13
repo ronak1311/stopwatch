@@ -6,18 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="CSS/style.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 </head>
-<body>
-    <table id="table1">
-        <tr>
-            <td id="hr">00</td>
-            <td>:</td>
-            <td id="min">00</td>
-            <td>:</td>
-            <td id="sec">00</td>
-        </tr>
-    </table>
+<body background="image1.jpg">
+    <div id="divTimer">
+        <table id="table1">
+            <tr>
+                <td id="hr">00</td>
+                <td id="colon">:</td>
+                <td id="min">00</td>
+                <td id="colon">:</td>
+                <td id="sec">00</td>
+            </tr>
+        </table>
+    </div>
+    <div id="divBtn">
+            <table id="table1">
+                <tr>
+                    <button type="button" class="wow bounceInUp" id="btnStart" value="btnStart">Start</button>
+                </tr>
+                <tr>
+                    <button type="button" id="btnPause" value="btnPause">Pause</button>
+                </tr>
+                    <tr>
+                    <button type="button" id="btnStop" value="btnStop">Stop</button>
+                </tr>
+                <tr>
+                    <button type="button" id="btnLap" value="btnLap">Lap</button>
+                </tr>
+            </table>
+    </div>
 </body>
 </html>
