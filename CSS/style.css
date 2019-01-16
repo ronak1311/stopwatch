@@ -25,14 +25,15 @@
     
 }
 #divBtn{
-    margin-left: 30%;
-    margin-top: 5%;
+    float: left;
+    margin-left:19.5%;
+    margin-top:5%;
 
 }
 #colon{
     color:white;
 }
-#btnStart,#btnPause,#btnStop,#btnLap{
+#btnStart,#btnReset,#btnStop,#btnLap{
     font-family: Papyrus, fantasy; 
     font-size: 80px;
     font-style: normal; 
@@ -45,9 +46,34 @@
     padding: 10px 24px;
     margin: 20px;    
 }
-#btnStart:hover,#btnPause:hover,#btnStop:hover,#btnLap:hover{
+#btnStart:hover,#btnReset:hover,#btnStop:hover,#btnLap:hover{
     background-color:black;
     color: white;
     border-color: blue;
     cursor:  -webkit-grabbing;
+}
+
+
+#detailsHistory{
+    height: 200px;
+    width: 200px;
+    border-right: solid 0.5px red ;
+    color: white;
+    float: left;
+}
+#detailsLaps{
+    margin-left:200px; 
+    height: 200px;
+    width: 200px;
+    border-left: solid 0.5px red ;
+    color: white;
+    float: left;
+}
+h1{
+    font-family: Papyrus, fantasy; 
+    font-size: 80px;
+    font-style: normal; 
+    font-variant: small-caps;
+    font-size: 35px;
+
 }

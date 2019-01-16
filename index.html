@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
     <title>Document</title>
     <link rel="stylesheet" href="CSS/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
 
 </head>
 <body background="image1.jpg">
+        
     <div id="divTimer">
         <table id="table1">
             <tr>
@@ -21,21 +19,46 @@
             </tr>
         </table>
     </div>
+    
+    <div id="detailsHistory">
+        <h1>History</h1>
+        <div id="history">
+            <ol>
+
+            </ol>
+            
+        </div>
+    </div>
+    
+   
     <div id="divBtn">
-            <table id="table1">
+            <table id="table2">
+                    
                 <tr>
-                    <button type="button" class="wow bounceInUp" id="btnStart" value="btnStart">Start</button>
+                    <button type="button"  id="btnStart">Start</button>
                 </tr>
                 <tr>
-                    <button type="button" id="btnPause" value="btnPause">Pause</button>
-                </tr>
-                    <tr>
-                    <button type="button" id="btnStop" value="btnStop">Stop</button>
+                    <button type="button" id="btnStop" >Stop</button>
                 </tr>
                 <tr>
-                    <button type="button" id="btnLap" value="btnLap">Lap</button>
+                    <button type="button" id="btnLap" >Lap</button>
+                </tr>
+                <tr>
+                    <button type="button" id="btnReset" >Reset</button>
                 </tr>
             </table>
     </div>
+    <div id="detailsLaps">
+            <h1>&nbsp&nbspLaps</h1>
+        <div id="laps">
+            <ol>
+                
+            </ol>
+           
+        </div>
+    </div>
+    
+    <script src="JS/app.js"></script>
+    
 </body>
 </html>
