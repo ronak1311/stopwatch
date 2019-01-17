@@ -5,16 +5,16 @@ class stopWatch{
         this.sec=0;
         this.min=0;
         this.hr=0;
-       //console.log(this.sec);
+       
        this.interval=null;     
        this.Lap=0;
     }
    
-
+    //update the Timer Display everysecond with proper format
      timeConversion()
     {
         this.sec++;
-        //console.log(Number(this.sec));
+        
     
         if(this.sec / 60 === 1){
             this.sec = 0;
@@ -24,7 +24,7 @@ class stopWatch{
             this.min = 0;
             this.hr++;
         }
-       
+        //taking ids to manipulate display
         let secId=document.getElementById("sec");
         let minId=document.getElementById("min");
         let hrId=document.getElementById("hr");
@@ -45,27 +45,28 @@ class stopWatch{
          }
         else{
             hrId.innerHTML=this.hr;
-        }
-        
+        }        
     } 
+    //function to start the timer
     startTimer()
     {
-            
             this.Lap=new Date().getTime();
             this.interval=window.setInterval(() => {
-                this.timeConversion();
+            this.timeConversion();
             }, 1000);       
     }
-
+    //function to stop timer
     stopTimer()
     {
         window.clearInterval(this.interval);
         this.interval=null;
     }
+    //function to pause timer
     pauseTimer()
     {    
             clearInterval(this.interval);
     }
+    //function to reset timer
     resetTimer()
     {
         this.sec=0;
@@ -76,8 +77,6 @@ class stopWatch{
         let minId=document.getElementById("min").innerHTML="00";
         let hrId=document.getElementById("hr").innerHTML="00";
     }
-    
-
     
 
 }
@@ -99,9 +98,11 @@ let lapSec;
 let lapMin;
 let lapHr;
 let historyData=[];
+obj=new stopWatch()//declaring object of stopWatch class
 
+//declaring functions
 
-obj=new stopWatch()
+    //start button click event
  startBtn.onclick=function(){
     if(isStop === true)
      {
@@ -122,6 +123,7 @@ obj=new stopWatch()
          obj.pauseTimer();
      }   
  }
+ //stop button click event
 stopBtn.onclick=function(){
     obj.stopTimer();
     isStop=true;
@@ -130,19 +132,21 @@ stopBtn.onclick=function(){
     }
     localStorage.setItem('status',"notRun");
 }
+//reset button click event
 resetBtn.onclick=function(){
     isOn=false;
     obj.resetTimer();
     startBtn.innerHTML="Start";
      let ulID=document.getElementById('ulID');
      let pushHistoryData=ulID.lastChild.textContent.slice(17,25);
-    // console.log(pushHistoryData);
+
+    //removing List if it is there
     for (let i = ulID.childNodes.length - 1; i >= 0; i--) {
         ulID.removeChild(ulID.childNodes[i]);
      }
     lapCount=0;
     let localStorageData=localStorage.getItem('historyData');
-    if(localStorageData === "null")
+    if(localStorageData === "null") //checking if there is data available or not
     {
         historyData=[];
     }
@@ -150,19 +154,20 @@ resetBtn.onclick=function(){
     {
         historyData=JSON.parse(localStorageData);
     }
-    if(!(pushHistoryData.indexOf(' ')>=0))
+    if(!(pushHistoryData.indexOf(' ')>=0)) //to not take whitespace becase it was taking whitespace if List is empty
     {
         historyData.push(pushHistoryData);
     }
     
-    //localStorage.setItem('historyData', JSON.stringify(historyData));
+    
     if(historyData.length>10)
     {
-        (historyData.shift());
+        (historyData.shift());//removing the first element of history array
         
     }
         localStorage.setItem('historyData', JSON.stringify(historyData));
-  
+    
+        //pushing total to history
         let olID=document.getElementById('olID');
         for (let i = olID.childNodes.length - 1; i >= 0; i--) {
             olID.removeChild(olID.childNodes[i]);
@@ -173,13 +178,18 @@ resetBtn.onclick=function(){
             olID.appendChild(newLI);
         });
         localStorage.removeItem('lapDetails');
-        localStorage.setItem('status',"notRun");
+        localStorage.setItem('status',"Norunning");//maintaing status for browser close requirement
 }
+
+//lap button click event
 lapBtn.onclick=function(){
-    console.log("lapClicked");
+    
     if(isOn === true){
-        if(lapCount<10){
+        
+        if(lapCount<10){  //max 10 laps allowed
+            
             if(isStop!==true){
+                
                 let timeDifference=new Date().getTime()-(obj.Lap);
                 obj.Lap=new Date().getTime();
                 
@@ -188,8 +198,6 @@ lapBtn.onclick=function(){
                 lapTotal=document.getElementById("hr").textContent + ":" +
                 document.getElementById("min").textContent + ":" +
                 document.getElementById("sec").textContent;
-                //console.log(lapTotal);
-               
                 lapCount++;
                 newLI.textContent="Lap " + lapCount + ":  ";
                 newLI.appendChild(document.createTextNode(lapDisplay +" "+lapTotal));
@@ -198,17 +206,16 @@ lapBtn.onclick=function(){
         }
         else
         {   
-            
                 document.getElementById("lapHeader").innerHTML="Max 10 laps";
                 setTimeout(function(){
                  document.getElementById("lapHeader").innerHTML="Laps";
                  }, 3000);
-    
         }  
             
     }
        
 }
+//converting miliseconds into sec,min,Hr format
 function convertMiliseconds(timediff)
 {
     let s=0;
@@ -243,51 +250,41 @@ function convertMiliseconds(timediff)
     }
     return(h+":"+m+":"+s);
 }
+//convert time difference between browser closed and the reopened and display it.
 function countNewDisplayTime(diff,dispTime){
-    
-    
-     diffSec=parseInt(diff.slice(6,8));
-     diffMin=parseInt((diff.slice(3,6)));
-     diffHr=parseInt(diff.slice(0,2));
-     dispTimeSec=parseInt(dispTime.slice(6,8));
-     dispTimeMin=parseInt(dispTime.slice(3,6));
-     dispTimeHr=parseInt(dispTime.slice(0,2));
-   
-    dispTimeSec+=diffSec;   
-    if(dispTimeSec>60)
-    {
-        dispTimeMin+=parseInt(dispTimeSec/60);
-        dispTimeSec=dispTimeSec%60;
-        
-    }
-    // if(dispTimeSec<10)
-    //     {
-    //         dispTimeSec="0"+dispTimeSec;
-    //     }
-    //     dispTimeMin+=diffMin;
-    if(dispTimeMin>60)
-    {
-        dispTimeHr+=parseInt(dispTimeMin/60);
-        dispTimeMin=dispTimeMin%60;
-        
-    }
-    // if(dispTimeMin<10)
-    //     {
-    //         dispTimeMin="0"+dispTimeMin;
-    //     }
-        dispTimeHr+=diffHr;
-    // if(dispTimeHr<10)
-    //     {
-    //         dispTimeHr="0"+dispTimeHr;
-    //     }
-        obj =new stopWatch();
-        obj.sec=dispTimeSec;
-        obj.min=dispTimeMin;
-        obj.hr=dispTimeHr;
-        obj.startTimer();
+
+    diffSec=parseInt(diff.slice(6,8));
+    diffMin=parseInt((diff.slice(3,6)));
+    diffHr=parseInt(diff.slice(0,2));
+    dispTimeSec=parseInt(dispTime.slice(6,8));
+    dispTimeMin=parseInt(dispTime.slice(3,6));
+    dispTimeHr=parseInt(dispTime.slice(0,2));
+
+      dispTimeSec+=diffSec;   
+        if(dispTimeSec>60)
+        {
+            dispTimeMin+=parseInt(dispTimeSec/60);
+            dispTimeSec=dispTimeSec%60;
+            
+        }
+        if(dispTimeMin>60)
+        {
+            dispTimeHr+=parseInt(dispTimeMin/60);
+            dispTimeMin=dispTimeMin%60;
+            
+        }
+     dispTimeHr+=diffHr;
+     obj =new stopWatch();
+     //adding new time to object then start timer
+     obj.sec=dispTimeSec;
+     obj.min=dispTimeMin;
+     obj.hr=dispTimeHr;
+     obj.startTimer();
     
 }
+//on Load of page loading history and continue stopwatch if it is on running mode
 window.onload = function(e){ 
+    //loading History
     if(localStorage.getItem('historyData') === null)
      localStorage.setItem('historyData',null);
     else
@@ -295,7 +292,8 @@ window.onload = function(e){
         let historyData=[];
         historyData=JSON.parse(localStorage.getItem('historyData'));
         let olID=document.getElementById('olID');
-            if(historyData !== null){
+            if(historyData !== null)
+            {
                 historyData.forEach(element => {
                     let newLI=document.createElement('li');
                     newLI.appendChild(document.createTextNode(element));
@@ -304,64 +302,65 @@ window.onload = function(e){
             }
             
     }
+    //loading laps and stopwatch latest time
     var status=localStorage.getItem('status')
     if(status === "running")
     {
-        if(localStorage.getItem('lapDetails') === "null")
+        isOn=true;
+        if(localStorage.getItem('lapDetails') === null)
         {
           localStorage.setItem('lapDetails',"");
-        }
+        } 
         else
         {
-            
                 let lapHistory=[];
                 lapHistory=JSON.parse(localStorage.getItem('lapDetails'));
                 let ulID=document.getElementById('ulID');
                 lapHistory.reverse();   
                 lapCount=lapHistory.length;
-                console.log(lapCount);
+
                 lapHistory.forEach(element => {
                 let newLI=document.createElement('li');
                 newLI.appendChild(document.createTextNode(element));
                 ulID.appendChild(newLI);
-            });
-            var ot=new Date();
-            var ct=Date.parse(localStorage.getItem('closingTime'));
-            var diff=ot-ct;
-            var diff=convertMiliseconds(diff);
-            var dispTime=localStorage.getItem('dispTime');
-            countNewDisplayTime(diff,dispTime);
+                 });
+
+                var ot=new Date();
+                var ct=Date.parse(localStorage.getItem('closingTime'));
+                var diff=ot-ct;
+                var diff=convertMiliseconds(diff);
+                var dispTime=localStorage.getItem('dispTime');
+                countNewDisplayTime(diff,dispTime);
+        
         }
-    
    }
 
 }
+//function doing storage before browser unload
 function closeBrowser()
 {
     if(isOn === true)
     {
         localStorage.setItem('status',"running");
         let lapHistory=[];
-    if(localStorage.getItem('lapDetails') !== null){
-        localStorage.removeItem('lapDetails');
-    }
-    let ulID=document.getElementById('ulID');
+        if(localStorage.getItem('lapDetails') !== null)
+        {
+         localStorage.removeItem('lapDetails');
+        }
+        let ulID=document.getElementById('ulID');
     
-        for (let i = ulID.childNodes.length - 1; i >= 0; i--) {
-            if(!((ulID.childNodes[i].textContent).indexOf(' ')>=0))
-            {
+        for (let i = ulID.childNodes.length - 1; i >= 0; i--)
+         {    
                 lapHistory.push(ulID.childNodes[i].textContent);
-            }
-            
          }
          localStorage.setItem('lapDetails',JSON.stringify(lapHistory));
-        var d=new Date();
-        localStorage.setItem('closingTime',d);
-        let sec=document.getElementById("sec").textContent;
-        let min=document.getElementById("min").textContent;
-        let hr=document.getElementById("hr").textContent;
-        let disTime=hr+":"+min+":"+sec;
-        localStorage.setItem('dispTime',disTime);
+         var d=new Date();
+         localStorage.setItem('closingTime',d);
+         let sec=document.getElementById("sec").textContent;
+         let min=document.getElementById("min").textContent;
+         let hr=document.getElementById("hr").textContent;
+         let disTime=hr+":"+min+":"+sec;
+         localStorage.setItem('dispTime',disTime);
     }
     if(isStop === true)
     {
@@ -370,14 +369,7 @@ function closeBrowser()
     
 }   
 
- window.onbeforeunload = function (e) {
-     // Your logic to prepare for 'Stay on this Page' goes here 
-     
-     
-     return "Please click 'Stay on this Page' and we will give you candy";
-     //e.preventDefault();
-        
-     }
-     window.addEventListener("unload", function() {
-        closeBrowser();
+//function invoke when user click close or  referesh
+window.addEventListener("unload", function() {
+        closeBrowser();//function to do stuff before unload
     });
