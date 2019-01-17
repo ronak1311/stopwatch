@@ -26,7 +26,7 @@
 }
 #divBtn{
     float: left;
-    margin-left:19.5%;
+    margin-left:17%;
     margin-top:5%;
 
 }
@@ -55,17 +55,20 @@
 
 
 #detailsHistory{
-    height: 200px;
+    height: 295px;
     width: 200px;
     border-right: solid 0.5px red ;
+    border-bottom: solid 0.5px red ;
     color: white;
     float: left;
+    margin-left: 50px;
 }
 #detailsLaps{
     margin-left:200px; 
-    height: 200px;
+    height: 295px;
     width: 200px;
     border-left: solid 0.5px red ;
+    border-bottom: solid 0.5px red ;
     color: white;
     float: left;
 }
@@ -75,5 +78,17 @@ h1{
     font-style: normal; 
     font-variant: small-caps;
     font-size: 35px;
+    width: 400px;
 
 }
+ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0.5em;
+    width: 400px;
+  }
+  li{
+      
+  }
+  
+ 
