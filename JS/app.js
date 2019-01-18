@@ -53,7 +53,6 @@ class stopWatch{
     {
             this.Lap=new Date().getTime();
             this.interval=window.setInterval(() => {
-                $("#sec").addClass("wow fadeIn Up");
             this.timeConversion();
             }, 1000);       
     }
