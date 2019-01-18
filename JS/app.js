@@ -28,7 +28,8 @@ class stopWatch{
         let secId=document.getElementById("sec");
         let minId=document.getElementById("min");
         let hrId=document.getElementById("hr");
-         if(this.sec<10){
+        
+         if(this.sec<10){	
             secId.innerHTML="0" + this.sec;
          } 
          else{
@@ -52,6 +53,7 @@ class stopWatch{
     {
             this.Lap=new Date().getTime();
             this.interval=window.setInterval(() => {
+                $("#sec").addClass("wow fadeIn Up");
             this.timeConversion();
             }, 1000);       
     }
@@ -77,8 +79,6 @@ class stopWatch{
         let minId=document.getElementById("min").innerHTML="00";
         let hrId=document.getElementById("hr").innerHTML="00";
     }
-    
-
 }
 
 //Declaring Variables
@@ -99,10 +99,9 @@ let lapMin;
 let lapHr;
 let historyData=[];
 obj=new stopWatch()//declaring object of stopWatch class
-
 //declaring functions
 
-    //start button click event
+//start button click event
  startBtn.onclick=function(){
     if(isStop === true)
      {
@@ -336,6 +335,13 @@ window.onload = function(e){
    }
 
 }
+
+
+//function invoke when user closes browser or  referesh
+window.addEventListener("unload", function() {
+        closeBrowser();//function to do stuff before unload
+    });
+
 //function doing storage before browser unload
 function closeBrowser()
 {
@@ -368,8 +374,3 @@ function closeBrowser()
     }
     
 }   
-
-//function invoke when user click close or  referesh
-window.addEventListener("unload", function() {
-        closeBrowser();//function to do stuff before unload
-    });
